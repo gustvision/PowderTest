@@ -96,7 +96,7 @@ extension ViewController: UICollectionViewDelegate {
         
         if index == 0 {
             scrollTo(index: viewModel.cellViewModels.count - 2)
-        } else if index == viewModel.cellViewModels.count {
+        } else if index == viewModel.cellViewModels.count - 1 {
             scrollTo(index: 1)
         }
     }
