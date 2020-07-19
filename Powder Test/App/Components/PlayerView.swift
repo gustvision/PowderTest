@@ -24,7 +24,8 @@ class PlayerView: UIView {
         }
     }
     
-    private var player: AVPlayer?
+    private var player: AVQueuePlayer?
+    private var looper: AVPlayerLooper?
     
     private lazy var playButton: UIButton = {
         let button = UIButton()
@@ -63,8 +64,9 @@ class PlayerView: UIView {
     
     func play(url: URL) {
         let item = AVPlayerItem(url: url)
-        self.player = AVPlayer(playerItem: item)
-        
+        let player = AVQueuePlayer(playerItem: item)
+        self.player = player
+        self.looper = AVPlayerLooper(player: player, templateItem: item)
         playerLayer.player = player
     }
     
