@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     fileprivate lazy var collectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.minimumLineSpacing = 0
-        collectionViewLayout.scrollDirection = .vertical
+        collectionViewLayout.scrollDirection = .horizontal
         collectionViewLayout.itemSize = UIScreen.main.bounds.size
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
