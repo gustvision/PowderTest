@@ -93,7 +93,17 @@ extension ViewController: UICollectionViewDelegate {
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let index = Int(scrollView.contentOffset.x / scrollView.frame.width)
-        print("index: \(index)")
+        
+        if index == 0 {
+            scrollTo(index: viewModel.cellViewModels.count - 2)
+        } else if index == viewModel.cellViewModels.count {
+            scrollTo(index: 1)
+        }
+    }
+    
+    private func scrollTo(index: Int) {
+        let point = CGPoint(x: self.collectionView.frame.width * CGFloat(index), y: 0)
+        self.collectionView.setContentOffset(point, animated: false)
     }
 }
 
@@ -101,8 +111,7 @@ extension ViewController: FeedViewModelDelegate {
     func refresh() {
         DispatchQueue.main.async {
             if self.viewModel.cellViewModels.count >= 2 {
-                let point = CGPoint(x: self.collectionView.frame.width, y: 0)
-                self.collectionView.setContentOffset(point, animated: false)
+                self.scrollTo(index: 1)
             }
             self.collectionView.reloadData()
         }
