@@ -14,6 +14,8 @@ class FeedCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
+        label.textAlignment = .center
+        label.font = .boldSystemFont(ofSize: 32)
         return label
     }()
     
@@ -45,20 +47,28 @@ class FeedCell: UICollectionViewCell {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            playerView.topAnchor.constraint(equalTo: topAnchor),
-            playerView.leftAnchor.constraint(equalTo: leftAnchor),
-            playerView.rightAnchor.constraint(equalTo: rightAnchor),
-            
-            playerView.bottomAnchor.constraint(equalTo: tittleLabel.topAnchor, constant: 8),
-            
+            tittleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             tittleLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             tittleLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            tittleLabel.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            
+            tittleLabel.bottomAnchor.constraint(equalTo: playerView.topAnchor, constant: 8),
+            
+            playerView.leftAnchor.constraint(equalTo: leftAnchor),
+            playerView.rightAnchor.constraint(equalTo: rightAnchor),
+            playerView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
     
     func setup(viewModel: FeedCellViewModel) {
         tittleLabel.text = viewModel.game
         playerView.play(url: viewModel.videoURL)
+    }
+    
+    func play() {
+        playerView.play()
+    }
+    
+    func pause() {
+        playerView.pause()
     }
 }

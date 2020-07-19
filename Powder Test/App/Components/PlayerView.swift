@@ -75,11 +75,19 @@ class PlayerView: UIView {
         isPlaying.toggle()
         
         if isPlaying {
-            player?.play()
-            playButton.setImage(UIImage(systemName: "pause"), for: .normal)
+            play()
         } else {
-            player?.pause()
-            playButton.setImage(UIImage(systemName: "play"), for: .normal)
+            pause()
         }
+    }
+    
+    func play() {
+        player?.play()
+        playButton.setImage(UIImage(systemName: "pause"), for: .normal)
+    }
+    
+    func pause() {
+        player?.pause()
+        playButton.setImage(UIImage(systemName: "play"), for: .normal)
     }
 }

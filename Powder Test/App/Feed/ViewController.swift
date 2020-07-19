@@ -83,12 +83,27 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        (cell as? FeedCell)?.pause()
+    }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        (cell as? FeedCell)?.play()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let index = Int(scrollView.contentOffset.x / scrollView.frame.width)
+        print("index: \(index)")
+    }
 }
 
 extension ViewController: FeedViewModelDelegate {
     func refresh() {
         DispatchQueue.main.async {
+            if self.viewModel.cellViewModels.count >= 2 {
+                let point = CGPoint(x: self.collectionView.frame.width, y: 0)
+                self.collectionView.setContentOffset(point, animated: false)
+            }
             self.collectionView.reloadData()
         }
     }

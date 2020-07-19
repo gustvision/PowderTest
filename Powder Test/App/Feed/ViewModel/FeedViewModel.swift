@@ -30,7 +30,14 @@ class FeedViewModel {
             
             switch result {
             case let .success(videos):
-                self.cellViewModels = videos.map{ FeedCellViewModel(feedVideo: $0) }
+                let viewModels = videos.map{ FeedCellViewModel(feedVideo: $0) }
+                
+                if viewModels.count >= 2, let first = viewModels.first, let last = viewModels.last {
+                    self.cellViewModels = [last] + viewModels + [first]
+                } else {
+                    self.cellViewModels = viewModels
+                }
+                
                 self.delegate?.refresh()
             case .failure:
                 self.delegate?.showError()
